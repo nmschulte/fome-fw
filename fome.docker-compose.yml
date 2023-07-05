@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  build-base:
+    image: fome/build-base:ubuntu-${UBUNTU_VERSION:-22.04}
+    build:
+      dockerfile: build-base.Dockerfile
+      context: .
+    network_mode: host
+    user: '1000'
+
+  firmware:
+    image: fome/firmware:ubuntu-${UBUNTU_VERSION:-22.04}
+    build:
+      dockerfile: firmware.Dockerfile
+      context: .
+    volumes:
+      - .:/fome/fome
+    network_mode: host
+    user: '1000'
+
+  simulator:
+    image: fome/simulator:ubuntu-${UBUNTU_VERSION:-22.04}
+    build:
+      dockerfile: simulator.Dockerfile
+      context: .
+    volumes:
+      - .:/fome/fome
+    network_mode: host
+    user: '1000'
