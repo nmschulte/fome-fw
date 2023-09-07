@@ -63,6 +63,21 @@ See [firmware/gcc_version_check.c](firmware/gcc_version_check.c) for the recomme
 
 Check out https://rusefi.com/forum/viewtopic.php?f=5&t=9
 
+### Dockerized Build
+
+Here I (nmschulte) provide a WIP Docker composition and commands to build the FOME firmware.  This is a
+WIP/"means to a particular end" given my somewhat limited understanding of the build infrastructure, and may be
+outdated and not particularly "correct."  Expect it to change for the better in the future.  It is mainly derived from
+the `.github/workflows/build-firmware.yaml` build description, extending back to the system used for rusEFI.
+
+```bash
+# build the images
+time UBUNTU_VERSION=22.04 sh -c 'docker-compose --file fome.docker-compose.yml build --build-arg UBUNTU_VERSION=${UBUNTU_VERSION}'
+
+# build the firmware (for Proteus F7; for other targets, see firmware/docker_build.sh)
+time UBUNTU_VERSION=22.04 docker-compose --file fome.docker-compose.yml run --rm firmware proteus_f7
+```
+
 # Release Notes
 
 See [the changelog](firmware/CHANGELOG.md), or [by release](https://github.com/FOME-Tech/fome-fw/releases).
