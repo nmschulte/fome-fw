@@ -196,7 +196,7 @@ TEST(LuaHooks, LuaPid) {
 }
 
 TEST(LuaHooks, TestPersistentValues) {
-	//EngineTestHelper eth(engine_type_e::TEST_ENGINE);
+	EngineTestHelper eth(engine_type_e::TEST_ENGINE);
 
 	EXPECT_ANY_THROW(testLuaExecString("getPersistentValue(0)"));
 	EXPECT_NO_THROW(testLuaExecString("getPersistentValue(1)"));
@@ -222,4 +222,14 @@ TEST(LuaHooks, TestPersistentValues) {
 	end
 	)";
 	EXPECT_EQ(testLuaReturnsNumber(storeRetrieveCode), 1.5);
+
+	ButtonDebounce::stopConfigurationList();
+	ButtonDebounce::startConfigurationList();
+
+	ButtonDebounce::stopConfigurationList();
+	ButtonDebounce::startConfigurationList();
+
+	resetConfigurationExt(nullptr, engine_type_e::DODGE_NEON_1995);
+
+	EXPECT_EQ(testLuaReturnsNumber(initialCode), 1.5);
 }
